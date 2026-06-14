@@ -23,19 +23,19 @@
 プロジェクトの構成は、以下の通りです。
 
 ```text
-project/
-├── .claude/                        # Claude Codeのテンプレート
-├── hooks/                          # 自動実行スクリプト
-├── inputs/                         # 読み取り専用の入力データ
-├── outputs/                        # ウロボロス方式の出力先
-├── logs/                           # 実行ログ
-└── settings.json                   # プロジェクトの設定ファイル
+├── .claude 
+├── .claude.json
+├── README.md
+├── images
+├── inputs 
+├── outputs 
+├── logs 
+└── settings.json
 ```
 
 Claude Codeのテンプレートの構成は、以下の通りです。
 
 ```
-
 .
 ├── .claude
 │   ├── CLAUDE.md
