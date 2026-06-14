@@ -1,0 +1,24 @@
+取得したページ内容から、『陰陽師0』の映画データを抽出して出力します：
+
+---
+TITLE: 陰陽師0
+TITLE_EN: 
+RELEASE_YEAR: 2024
+DIRECTOR: 佐藤嗣麻子
+PRODUCER: 
+CAST: 染谷将太:安倍晴明
+奈緒:
+板垣李光人:
+STAFF: 佐藤嗣麻子:監督
+加門七海:呪術監修
+岡野玲子:漫画「陰陽師」作者
+GENRE: 
+DURATION: 
+PRODUCTION: 映画「陰陽師0」製作委員会
+DISTRIBUTOR: ワーナー ブラザース ジャパン
+AWARD: 
+JFDB_URL: https://jfdb.jp/title/10104
+OFFICIAL_URL: https://wwws.warnerbros.co.jp/onmyoji0/
+SYNOPSIS:
+実在した《最強の呪術師》安倍晴明。呪術は、ここから始まる―。
+---

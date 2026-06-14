@@ -1,0 +1,23 @@
+取得したページ内容が限られているため、映画データを抽出して出力します：
+
+---
+TITLE: 天外者
+TITLE_EN: 
+RELEASE_YEAR: 2020
+DIRECTOR: 田中光敏
+PRODUCER: 
+CAST: 三浦春馬:五代友厚
+三浦翔平:岩崎弥太郎
+西川貴教:坂本龍馬
+森川葵:はつ
+津田寛治:桂小五郎
+STAFF: 田中光敏:監督
+GENRE: 
+DURATION: 
+PRODUCTION: 映画「五代友厚」製作委員会
+DISTRIBUTOR: 
+AWARD: 
+JFDB_URL: https://jfdb.jp/title/9496
+OFFICIAL_URL: https://tengaramon-movie.com
+SYNOPSIS:
+---

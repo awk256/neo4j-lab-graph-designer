@@ -1,0 +1,16 @@
+{
+  "managedIgnore": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "logs/*.log"
+  ],
+  "autoExecute": [
+    "ls -F",
+    "git status",
+    "python3 --version"
+  ],
+  "display": {
+    "showTokenUsage": true,
+    "theme": "light"
+  }
+}

@@ -1,0 +1,47 @@
+{
+   "permissions": {
+    "allow": [
+      "Bash(wc *)",
+      "Bash(python *)",
+      "Write(outputs/graph_data/*)",
+      "Write(outputs/queries/*)",
+      "Bash(python3 *)"
+    ]
+  },
+  "hooks": {
+    "SubagentStart": [
+      {
+        "matcher": "graph-skill-designer\\(グラフスキル設計エージェント\\)|semantic-model-designer\\(セマンティックモデル設計エージェント\\)|graph-extractor\\(グラフデータ抽出エージェント\\)|graph-importer\\(グラフ登録エージェント\\)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/log_agent_output.sh | tee -a logs/agents_$(date +%Y%m%d).log",
+            "statusMessage": "Logging agent start..."
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "matcher": "graph-extractor\\(グラフデータ抽出エージェント\\)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/log_agent_output.sh | tee -a logs/agents_$(date +%Y%m%d).log",
+            "statusMessage": "Logging graph-extractor completion..."
+          }
+        ]
+      },
+      {
+        "matcher": "graph-skill-designer\\(グラフスキル設計エージェント\\)|semantic-model-designer\\(セマンティックモデル設計エージェント\\)|graph-importer\\(グラフ登録エージェント\\)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/log_agent_output.sh | tee -a logs/agents_$(date +%Y%m%d).log",
+            "statusMessage": "Logging agent completion..."
+          }
+        ]
+      }
+    ]
+  }
+}

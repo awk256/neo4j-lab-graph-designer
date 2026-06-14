@@ -1,0 +1,23 @@
+取得したページ内容をもとに、映画データを抽出して出力します：
+
+---
+TITLE: 死神遣いの事件帖 終（ファイナル）
+TITLE_EN: 
+RELEASE_YEAR: 2025
+DIRECTOR: 
+PRODUCER: 
+CAST: 鈴木拡樹:久坂幻士郎役
+安井謙太郎:十蘭役
+生駒里奈:おみつ役
+梅津瑞樹:無限狼役
+崎山つばさ:庄司新之助役
+STAFF: 
+GENRE: 
+DURATION: 
+PRODUCTION: 
+DISTRIBUTOR: 
+AWARD: 
+JFDB_URL: https://jfdb.jp/title/9238
+OFFICIAL_URL: https://shinitsuka.com
+SYNOPSIS:
+---
