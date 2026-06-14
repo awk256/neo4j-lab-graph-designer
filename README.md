@@ -79,8 +79,97 @@ cd neo4j-lab-graph-designer
 - outputs/design-doc/design-doc.mdの中身を確認してみてください。
 - 「**デザインドックからデータモデル図をmermaidで出力してください**」と指示してみてください。
 
-  ```mermaid
- graph LR
+```mermaid
+graph LR
+    %% 1. ノードの定義（タイトルを太字、属性は名称のみ）
+    Genre["<b>Genre</b><br>name"]
+    
+    Movie["<b>Movie</b><br>title<br>title_en<br>release_year<br>duration<br>synopsis<br>jfdb_url<br>official_url"]
+    
+    Award["<b>Award</b><br>name<br>year<br>category"]
+    
+    Person["<b>Person</b><br>name"]
+    
+    Organization["<b>Organization</b><br>name<br>type"]
+
+    %% 2. リレーションシップ（エラー防止のため極限までシンプルに）
+    Movie -->|HAS_GENRE| Genre
+    
+    Movie -->|WON| Award
+    Person -->|WON| Award
+    Award -->|FOR_MOVIE| Movie
+    
+    Person -->|ACTED_IN| Movie
+    Person -->|DIRECTED| Movie
+    Person -->|PRODUCED| Movie
+    
+    Organization -->|PRODUCED| Movie
+    Organization -->|DISTRIBUTED| Movie
+
+    %% 3. デザイン調整（手書き風の白ベース）
+    classDef default fill:#FAFAFA,stroke:#4A6572,stroke-width:1.5px,rx:10,ry:10;
+    style Movie fill:#FFFFFF,stroke:#1A237E,stroke-width:2px;
+```
+
+- 一回目の実行で、はじめから100%期待どおりのグラフモデルを取得することはなかなか難しいものです。理想とする設計に近づけるために、デザインドックの改善を繰り返してください。
+
+##### 1回目の指示(例)
+
+```
+グラフのデザインドックを作成して
+```
+
+##### 2回目の指示(例)
+
+```
+以下の内容をデザインドックに反映してください。
+
+- 映画の内容を「ラッセルの感情円環モデル」を利用して感情分析し、その結果をプロパティに格納したい。感情は2次元空間（「快 - 不快」軸と「覚醒 - 睡眠」軸）で表現してください。
+- 映画からタグ、タグからジャンル、映画からジャンルへの距離感をそれぞれスコアリング（0〜1）し、リレーションシップに格納してください。
+- タグの例示は100種類用意してください。また、映画には3つ以上の複数のタグをマッピングしてください。
+- ジャンルは30種類用意してください。各映画・タグからのジャンルへのマッピングは、最大3種類までに制限してください。
+- アワード（Award）はエンティティから除外してください。
+```
+
+```mermaid
+graph LR
+    %% 1. ノードの定義（HTMLタグを使ってタイトルのみ太字に指定）
+    Genre["<b>Genre</b><br>name"]
+    
+    Movie["<b>Movie</b><br>title<br>title_en<br>release_year<br>duration<br>synopsis<br>jfdb_url<br>official_url<br>emotion_valence<br>emotion_arousal"]
+    
+    Tag["<b>Tag</b><br>name"]
+    
+    Person["<b>Person</b><br>name"]
+    
+    Organization["<b>Organization</b><br>name<br>type"]
+
+    %% 2. リレーションシップ
+    Movie -->|HAS_GENRE| Genre
+    Movie -->|HAS_TAG| Tag
+    Tag -->|BELONGS_TO_GENRE| Genre
+    
+    Person -->|ACTED_IN| Movie
+    Person -->|DIRECTED| Movie
+    Person -->|PRODUCED| Movie
+    
+    Organization -->|PRODUCED| Movie
+    Organization -->|DISTRIBUTED| Movie
+
+    %% 3. デザイン調整（手書き風の白ベース）
+    classDef default fill:#FAFAFA,stroke:#4A6572,stroke-width:1.5px,rx:10,ry:10;
+    style Movie fill:#FFFFFF,stroke:#1A237E,stroke-width:2px;
+```
+
+##### 3回目の指示(例)
+```
+以下のような内容をデザインドックに反映してください。
+- 感情分析のノードをグラフモデルに追加してください。
+- 感情分析の結果は、リレーションシップの属性にしてください。
+```
+
+```mermaid
+graph LR
       %% 1.ノードの定義（HTMLタグを使ってタイトルのみ太字に指定）
 
       Person["<b>Person</b><br>name"]
@@ -117,97 +206,6 @@ cd neo4j-lab-graph-designer
       classDef default fill:#FAFAFA,stroke:#4A6572,stroke-width:1.5px,rx:10,ry:10;
       style Movie fill:#FFFFFF,stroke:#1A237E,stroke-width:2px;
       style Emotion fill:#FFF3E0,stroke:#E65100,stroke-width:2px;
-```
-
-- 一回目の実行で、はじめから100%期待どおりのグラフモデルを取得することはなかなか難しいものです。理想とする設計に近づけるために、デザインドックの改善を繰り返してください。
-
-##### 1回目の指示(例)
-
-```
-グラフのデザインドックを作成して
-```
-
-##### 2回目の指示(例)
-
-```
-以下の内容をデザインドックに反映してください。
-
-- 映画の内容を「ラッセルの感情円環モデル」を利用して感情分析し、その結果をプロパティに格納したい。感情は2次元空間（「快 - 不快」軸と「覚醒 - 睡眠」軸）で表現してください。
-- 映画からタグ、タグからジャンル、映画からジャンルへの距離感をそれぞれスコアリング（0〜1）し、リレーションシップに格納してください。
-- タグの例示は100種類用意してください。また、映画には3つ以上の複数のタグをマッピングしてください。
-- ジャンルは30種類用意してください。各映画・タグからのジャンルへのマッピングは、最大3種類までに制限してください。
-- アワード（Award）はエンティティから除外してください。
-```
-
-```mermaid
-graph LR
-    %% 1. ノードの定義（タイトルを太字、属性は名称のみ）
-    Genre["<b>Genre</b><br>name"]
-    
-    Movie["<b>Movie</b><br>title<br>title_en<br>release_year<br>duration<br>synopsis<br>jfdb_url<br>official_url"]
-    
-    Award["<b>Award</b><br>name<br>year<br>category"]
-    
-    Person["<b>Person</b><br>name"]
-    
-    Organization["<b>Organization</b><br>name<br>type"]
-
-    %% 2. リレーションシップ（エラー防止のため極限までシンプルに）
-    Movie -->|HAS_GENRE| Genre
-    
-    Movie -->|WON| Award
-    Person -->|WON| Award
-    Award -->|FOR_MOVIE| Movie
-    
-    Person -->|ACTED_IN| Movie
-    Person -->|DIRECTED| Movie
-    Person -->|PRODUCED| Movie
-    
-    Organization -->|PRODUCED| Movie
-    Organization -->|DISTRIBUTED| Movie
-
-    %% 3. デザイン調整（手書き風の白ベース）
-    classDef default fill:#FAFAFA,stroke:#4A6572,stroke-width:1.5px,rx:10,ry:10;
-    style Movie fill:#FFFFFF,stroke:#1A237E,stroke-width:2px;
-```
-
-##### 3回目の指示(例)
-```
-以下のような内容をデザインドックに反映してください。
-- 感情分析のノードをグラフモデルに追加してください。
-- 感情分析の結果は、リレーションシップの属性にしてください。
-```
-
-```mermaid
-graph LR
-    %% 1. ノードの定義（タイトルを太字、属性は名称のみ）
-    Genre["<b>Genre</b><br>name"]
-    
-    Movie["<b>Movie</b><br>title<br>title_en<br>release_year<br>duration<br>synopsis<br>jfdb_url<br>official_url"]
-    
-    Award["<b>Award</b><br>name<br>year<br>category"]
-    
-    Person["<b>Person</b><br>name"]
-    
-    Organization["<b>Organization</b><br>name<br>type"]
-
-    %% 2. リレーションシップ（エラー防止のため極限までシンプルに）
-    Movie -->|HAS_GENRE| Genre
-    
-    Movie -->|WON| Award
-    Person -->|WON| Award
-    Award -->|FOR_MOVIE| Movie
-    
-    Person -->|ACTED_IN| Movie
-    Person -->|DIRECTED| Movie
-    Person -->|PRODUCED| Movie
-    
-    Organization -->|PRODUCED| Movie
-    Organization -->|DISTRIBUTED| Movie
-
-    %% 3. デザイン調整（手書き風の白ベース）
-    classDef default fill:#FAFAFA,stroke:#4A6572,stroke-width:1.5px,rx:10,ry:10;
-    style Movie fill:#FFFFFF,stroke:#1A237E,stroke-width:2px;
 ```
 
 このように、AIと対話を重ねながら自分の期待や意図、設計の観点を伝えるだけで、理想のグラフデータモデルがみるみる出来上がっていく実感が得られるはずです。
