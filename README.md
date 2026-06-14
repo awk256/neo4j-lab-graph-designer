@@ -65,12 +65,11 @@ Claude Codeのテンプレートの構成は、以下の通りです。
 
 ### 準備
 
-リポジトリをクローンし、Claude Codeにログインします。
+リポジトリをダウンロードしてください。
 
 ```bash
 git clone https://github.com/awk256/neo4j-lab-graph-designer.git
 cd neo4j-lab-graph-designer
-
 ```
 
 ### Step 1: デザインドックの自動作成
