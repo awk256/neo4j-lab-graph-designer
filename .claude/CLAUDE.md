@@ -1,22 +1,20 @@
 # プロジェクトコンテキスト
-非定型テキストからNeo4jベースのナレッジグラフを設計・構築する。
+非定型のデータからNeo4jベースのナレッジグラフを設計・構築する。
 
 # 技術スタック
-- データベース: Neo4j（ポート7687）、v 5.24
-- 言語: Python 3.12
+- データベース: Neo4j（ポート7687）、v 5.24+
+- 言語: Python 3.12+
 - ライブラリ: neo4j-driver
 
 # 実行指示(Instructions)
 - エラー時は即停止して報告する
 - 既存ファイルを上書きする前に確認を取る
-- **重要**: グラフデータの抽出と登録には必ず `.claude/skills/graph-importer/scripts/graph_importer.py` を使用する
-- **MCP制限**: Neo4j MCPツールは検索クエリのみに使用し、データ登録には使用しない
 
 # サブエージェント(Agents)構成
-- スキル設計-->`.claude/agents/graph-skill-designer.md`を実行
-- スキーマ設計-->`.claude/agents/graph-schema-designer.md`を実行
-- グラフデータ抽出-->`.claude/agents/graph-extractor.md`を実行
-- Cypher作成&グラフ登録-->`.claude/agents/graph-importer.md`を実行（graph_importer.pyを使用）
+- グラフ設計エージェント-->`.claude/agents/graph-skill-designer.md`
+- グラフスキーマ設計エージェント-->`.claude/agents/graph-schema-designer.md`
+- グラフデータ抽出エージェント-->`.claude/agents/graph-extractor.md`
+- グラフ登録エージェント-->`.claude/agents/graph-importer.md`
 
 # プロジェクト構成
 
@@ -24,8 +22,10 @@
 project/
 ├── .claude/
 │　 ├──settings.json                # プロジェクトの環境設定 
-│   ├── agents/
-│   │   └── {agent-name}.md         # サブエージェントの定義
+│   ├── agents/                     # サブエージェントの定義
+│   │   └── {agent-name}.md         
+│   ├── knowledge/                  # 汎用的なナレッジ
+│   │   └── xxxx.md                 
 │   └── skills/
 │       ├── {agent-name}/
 │       │   ├── SKILL.md            # 具体的な指示
