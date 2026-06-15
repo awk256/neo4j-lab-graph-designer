@@ -30,7 +30,6 @@ cd neo4j-lab-graph-designer
 ├── .claude 
 ├── .claude.json
 ├── README.md
-├── images
 ├── inputs 
 ├── outputs 
 ├── logs 
@@ -45,6 +44,9 @@ Claude Codeのテンプレートの構成は、以下の通りです。
 │   ├── CLAUDE.md
 │   ├── agents
 │   │   └── graph-skill-designer.md
+│   ├── hooks
+│   │   ├── designdoc_backup.sh
+│   │   └── log_agent_output.shhooks
 │   ├── knowledge
 │   │   └── graph-design-baseline.md
 │   ├── settings.json
@@ -54,11 +56,11 @@ Claude Codeのテンプレートの構成は、以下の通りです。
 │           └── graph-skill-template.md
 └──  inputs
 │   └── sample-data
-│        ├── baian-movie.com.txt
-│        ├── blueboy-movie.jp.txt
-│        ├── gobangiri-movie.com.txt
-│        ├── inuoh-anime.com.txt
-│        └── migawari-movie.jp.txt
+│       ├── baian-movie.com.txt
+│       ├── blueboy-movie.jp.txt
+│       ├── gobangiri-movie.com.txt
+│       ├── inuoh-anime.com.txt
+│       └── migawari-movie.jp.txt
 └── outputs
      └──  design-doc
         ├──  design-doc.md
