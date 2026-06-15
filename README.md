@@ -17,8 +17,12 @@
 
 * **AI ツール**: Claude Code
 
+* **テンプレートのダウンロード**
 
-## 📁 プロジェクト構成
+```bash
+git clone https://github.com/awk256/neo4j-lab-graph-designer.git
+cd neo4j-lab-graph-designer
+```
 
 プロジェクトの構成は、以下の通りです。
 
@@ -62,15 +66,6 @@ Claude Codeのテンプレートの構成は、以下の通りです。
 ```
 
 ## 📖 使用方法
-
-### 準備
-
-リポジトリをダウンロードしてください。
-
-```bash
-git clone https://github.com/awk256/neo4j-lab-graph-designer.git
-cd neo4j-lab-graph-designer
-```
 
 ### Step 1: デザインドックの自動作成
 
