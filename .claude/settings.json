@@ -9,6 +9,18 @@
     ]
   },
   "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/designdoc_backup_on_edit.sh \"$FILE_PATH\"",
+            "statusMessage": "Backing up design-doc before modification..."
+          }
+        ]
+      }
+    ],
     "SubagentStart": [
       {
         "matcher": "graph-skill-designer\\(.*\\)|graph-schema-designer\\(.*\\)|graph-extractor\\(.*\\)|graph-importer\\(.*\\)",
@@ -17,16 +29,6 @@
             "type": "command",
             "command": "bash .claude/hooks/log_agent_output.sh | tee -a logs/agents_$(date +%Y%m%d).log",
             "statusMessage": "Logging agent start..."
-          }
-        ]
-      },
-      {
-        "matcher": "graph-skill-designer\\(.*\\)",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash .claude/hooks/designdoc_backup.sh | tee -a logs/agents_$(date +%Y%m%d).log",
-            "statusMessage": "Creating design-doc backup..."
           }
         ]
       }
