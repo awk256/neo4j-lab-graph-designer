@@ -84,8 +84,10 @@ Claude Codeのテンプレートの構成は、以下の通りです。
 <br>
 
 ---
+
+`---`
 グラフデータベース設計書 - 日本映画作品ドメイン
----
+`---`
 
 # 1. エンティティモデル
 
@@ -171,7 +173,8 @@ Claude Codeのテンプレートの構成は、以下の通りです。
 | ACTED_IN | Person | Movie | role | string | 役名 |
 | STAFF_OF | Person | Movie | position | string | 職種（脚本・音楽・撮影など） |
 
-※詳細は、`design-doc.md`を参照してください。
+**※詳細は、`design-doc.md`を参照してください。**
+
 ---
 
 <br>
