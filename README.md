@@ -72,8 +72,102 @@ Claude Codeのテンプレートの構成は、以下の通りです。
 ### デザインドックの自動作成と評価
 
 - Claude Codeで **デザインドックを作成して** と指示します。
-- outputs/design-doc/design-doc.mdの中身を確認してみてください。
-- **データモデル図**を出力してみるといいでしょう。Claude Codeで「**デザインドックからデータモデル図をmermaidで出力して**」と指示してみてください。
+- outputs/design-doc/design-doc.mdの中身を確認してみてください。以下のように文字とおり、グラフDBの設計書になっているはずです。
+
+---
+グラフデータベース設計書 - 日本映画作品ドメイン
+---
+
+# 1. エンティティモデル
+
+## 1-1. エンティティ定義
+
+| ノード名 | 説明 |
+|---------|------|
+| Movie | 映画作品 |
+| Person | 人物（監督、俳優、スタッフ） |
+| Organization | 制作会社・配給会社 |
+| Genre | ジャンル |
+| Award | 受賞情報 |
+
+## 1-2. エンティティの属性一覧
+
+| ノード名 | 属性 | 型 | 必須 | 説明 |
+|---------|------|----|----|------|
+| Movie | unique_key | string | ✓ | ユニークキー（official_urlまたはtitle+release_yearから生成） |
+| Movie | title | string | ✓ | 邦題 |
+| Movie | title_en | string |  | 英題 |
+| Movie | release_year | integer |  | 公開年 |
+| Movie | duration | integer |  | 上映時間（分） |
+| Movie | synopsis | string |  | あらすじ |
+| Movie | jfdb_url | string |  | 日本映画データベースURL |
+| Movie | official_url | string |  | 公式サイトURL |
+| Person | unique_key | string | ✓ | ユニークキー（name） |
+| Person | name | string | ✓ | 氏名 |
+| Organization | unique_key | string | ✓ | ユニークキー（name） |
+| Organization | name | string | ✓ | 組織名 |
+| Organization | type | string |  | 組織種別（production/distributor） |
+| Genre | unique_key | string | ✓ | ユニークキー（name） |
+| Genre | name | string | ✓ | ジャンル名 |
+| Award | unique_key | string | ✓ | ユニークキー（name+year+category） |
+| Award | name | string | ✓ | 賞名 |
+| Award | year | integer | ✓ | 受賞年 |
+| Award | category | string |  | 部門・カテゴリ |
+
+※注意:冪等性確保のための一意キーは、名称などの属性から選定する。
+
+---
+
+# 2. ドメインモデル
+
+## 2-1. ドメイン定義（Cypher風記法）
+
+```cypher
+// 制作体制
+(Movie)-[:DIRECTED_BY]->(Person)
+(Movie)-[:PRODUCED_BY]->(Person)
+(Person)-[:ACTED_IN {role: "役名"}]->(Movie)
+(Person)-[:STAFF_OF {position: "職種"}]->(Movie)
+
+// 制作・配給
+(Movie)-[:PRODUCTION]->(Organization)
+(Movie)-[:DISTRIBUTED_BY]->(Organization)
+
+// ジャンル分類
+(Movie)-[:BELONGS_TO]->(Genre)
+
+// 受賞関係
+(Movie)-[:WON]->(Award)
+(Person)-[:WON]->(Award)
+(Award)-[:FOR_MOVIE]->(Movie)
+```
+
+## 2-2. リレーションシップ一覧
+
+| リレーションシップ名 | StartNode | EndNode | 説明 |
+|-------------------|-----------|---------|------|
+| DIRECTED_BY | Movie | Person | 監督 |
+| PRODUCED_BY | Movie | Person | プロデューサー |
+| ACTED_IN | Person | Movie | 出演 |
+| STAFF_OF | Person | Movie | スタッフ |
+| PRODUCTION | Movie | Organization | 製作会社 |
+| DISTRIBUTED_BY | Movie | Organization | 配給会社 |
+| BELONGS_TO | Movie | Genre | ジャンル分類 |
+| WON | Movie | Award | 映画の受賞 |
+| WON | Person | Award | 人物の受賞 |
+| FOR_MOVIE | Award | Movie | 受賞対象映画 |
+
+## 2-3. リレーションシップの属性一覧
+
+| リレーションシップ名 | StartNode | EndNode | 属性 | 型 | 説明 |
+|-------------------|-----------|---------|------|----|----|
+| ACTED_IN | Person | Movie | role | string | 役名 |
+| STAFF_OF | Person | Movie | position | string | 職種（脚本・音楽・撮影など） |
+
+※詳細は、design-doc.md.sampleを参照してください。
+---
+
+- さらに、**データモデル図**を出力してみるといいでしょう。Claude Codeで「**デザインドックからデータモデル図をmermaidで出力して**」と指示してみてください。
 
 ```mermaid
 graph LR
@@ -205,3 +299,10 @@ graph LR
 ```
 
 このように、AIと対話を重ねながら自分の期待や意図、設計の観点を伝えるだけで、理想のグラフデータモデルがみるみる出来上がっていく実感が得られるはずです。
+
+## 📖 グラフ設計書（デザインドック）の用途
+
+デザインドックは、総合的なグラフ設計書です。企画→PoC→評価→実装段階の設計ドキュメントを
+
+- グラフモデルの設計・評価
+- グラフスキーマ設計
