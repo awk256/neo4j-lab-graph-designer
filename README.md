@@ -54,7 +54,7 @@ Claude Codeのテンプレートの構成は、以下の通りです。
 │       └── graph-skill-designer
 │           ├── SKILL.md
 │           └── graph-skill-template.md
-└──  inputs
+├──  inputs
 │   └── sample-data
 │       ├── baian-movie.com.txt
 │       ├── blueboy-movie.jp.txt
