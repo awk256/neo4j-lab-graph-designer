@@ -9,18 +9,6 @@
     ]
   },
   "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Edit|Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash .claude/hooks/designdoc_backup_on_edit.sh \"$FILE_PATH\"",
-            "statusMessage": "Backing up design-doc before modification..."
-          }
-        ]
-      }
-    ],
     "SubagentStart": [
       {
         "matcher": "graph-skill-designer\\(.*\\)|graph-schema-designer\\(.*\\)|graph-extractor\\(.*\\)|graph-importer\\(.*\\)",
