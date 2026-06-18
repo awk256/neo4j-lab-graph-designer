@@ -108,3 +108,7 @@ CREATE CONSTRAINT person_name_unique FOR (p:Person) REQUIRE p.name IS UNIQUE
 ### 今後の拡張可能性
 -
 
+# 変更履歴
+- 更履歴を追加して行く。
+- **重要**: タイムスタンプ(YYYY-MM-DD MM:HH:SS)がバージョンの位置づけである。
+
